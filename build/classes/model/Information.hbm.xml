@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="model.Information" table="information">
+		<id name="infoId" column="infoId">
+			<generator class="assigned"/>
+		</id>
+		<property name="infoContent" type="string" column="infoContent"/>
+		<property name="sendTime" type="timestamp" column="sendTime"/>
+		<property name="toUserId" type="string" column="toUserId"/>
+		<property name="fromUserId" type="string" column="fromUserId"/>
+		<property name="classId" type="string" column="classId"/>
+	</class>
+</hibernate-mapping>    

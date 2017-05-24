@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="model.User" table="user">
+		<id name="userId" column="userId">
+			<generator class="assigned"/>
+		</id>
+		<property name="userOpenId" type="string" column="userOpenId"/>
+		<property name="userNum" type="string" column="userNum"/>
+		<property name="userPwd" type="string" column="userPwd"/>
+		<property name="userName" type="string" column="userName"/>
+		<property name="userTag" type="string" column="userTag"/>
+	</class>
+</hibernate-mapping>    

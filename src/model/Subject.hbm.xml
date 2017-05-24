@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="model.Subject" table="subject">
+		<id name="subId" column="subId">
+			<generator class="assigned"/>
+		</id>
+		<property name="subName" type="string" column="subName"/>
+		<property name="subInfo" type="string" column="subInfo"/>
+		<property name="subTab" type="string" column="subTab"/>
+	</class>
+</hibernate-mapping>    

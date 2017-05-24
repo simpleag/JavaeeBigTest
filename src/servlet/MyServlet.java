@@ -5,7 +5,6 @@ import hibernate.HibernateUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Customers;
 
 import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
@@ -39,26 +38,26 @@ public class MyServlet {
      *            一个域对象，可用于存储数据值
      * @return
      */
-    @RequestMapping(value = "/login",method = RequestMethod.POST) // @RequestMapping 注解可以用指定的URL路径访问本控制层
+//    @RequestMapping(value = "/login",method = RequestMethod.POST) // @RequestMapping 注解可以用指定的URL路径访问本控制层
 //    public String login(@RequestParam("username") String username, @RequestParam("password") String password,
 //            Model model) 
-    public String login(HttpServletRequest request, HttpServletResponse response){
-    	String username = request.getParameter("username");
-    	String password = request.getParameter("password");
-//    	Customers customer = new CustomersDAO().loadlike();
-    	MyAction action = (MyAction) context.getBean("myAction");
-    	CustomersDAO cdao= action.getCustomersDAO();;
-    	Customers customer = cdao.loadlike();
-        if (username.equals("admin") && password.equals("admin")) {
-//            model.addAttribute("username", username);
-        	request.setAttribute("usernmae", username);
-        	request.setAttribute("customer", customer.getCustomerID());
-            return "ok";
-        } else {
-//            model.addAttribute("username", username);
-            request.setAttribute("usernmae", username);
-            request.setAttribute("customer", customer.getCustomerID());
-            return "no";
-        }
-    }
+//    public String login(HttpServletRequest request, HttpServletResponse response){
+//    	String username = request.getParameter("username");
+//    	String password = request.getParameter("password");
+////    	Customers customer = new CustomersDAO().loadlike();
+//    	MyAction action = (MyAction) context.getBean("myAction");
+//    	CustomersDAO cdao= action.getCustomersDAO();;
+//    	Customers customer = cdao.loadlike();
+//        if (username.equals("admin") && password.equals("admin")) {
+////            model.addAttribute("username", username);
+//        	request.setAttribute("usernmae", username);
+//        	request.setAttribute("customer", customer.getCustomerID());
+//            return "ok";
+//        } else {
+////            model.addAttribute("username", username);
+//            request.setAttribute("usernmae", username);
+//            request.setAttribute("customer", customer.getCustomerID());
+//            return "no";
+//        }
+//    }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="model.Teachingclass" table="teahingclass">
+		<id name="classId" column="classId">
+			<generator class="assigned"/>
+		</id>
+		<property name="teacherId" type="string" column="tercherId"/>
+		<property name="subId" type="string" column="subId"/>
+		<property name="classNum" type="string" column="classNum"/>
+		<property name="classTime" type="string" column="classTime"/>
+		<property name="classAdd" type="string" column="classAdd"/>
+		<property name="classTag" type="string" column="classTag"/>
+		<property name="classTempTime" type="string" column="classTempTime"/>
+	</class>
+</hibernate-mapping>    

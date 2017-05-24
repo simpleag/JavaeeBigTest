@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="model.Elective" table="elective">
+		<id name="electiveId" column="electiveId">
+			<generator class="assigned"/>
+		</id>
+		<property name="classId" type="string" column="classId"/>
+		<property name="userId" type="string" column="userId"/>
+		<property name="score" type="string" column="score"/>
+		<property name="electiveTag" type="string" column="eletiveTag"/>
+	</class>
+</hibernate-mapping>    
