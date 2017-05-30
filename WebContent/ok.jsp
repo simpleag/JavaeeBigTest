@@ -8,7 +8,7 @@
 </head>
 <body>
 <font color="green">${username } </font>欢迎你！
-<%=request.getAttribute("usernmae") %>
-<br /><%=request.getAttribute("customer") %>
+<%=request.getSession().getAttribute("usernmae") %>
+<br /><%=request.getSession().getAttribute("customer") %>
 </body>
 </html>

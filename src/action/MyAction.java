@@ -1,22 +1,23 @@
 package action;
 
-import dao.CustomersDAO;
+import dao.CommonDao;
 /*
  * 测试mvc架构的测试方式
  */
 public class MyAction {
 	private String defaultResult;
-	private CustomersDAO customersDAO;
+	private CommonDao commonDao;
+	
 	public String getDefaultResult() {
 		return defaultResult;
 	}
 	public void setDefaultResult(String defaultResult) {
 		this.defaultResult = defaultResult;
 	}
-	public CustomersDAO getCustomersDAO() {
-		return customersDAO;
+	public CommonDao getCommonDao() {
+		return commonDao;
 	}
-	public void setCustomersDAO(CustomersDAO customersDAO) {
-		this.customersDAO = customersDAO;
+	public void setCommonDao(CommonDao commonDao) {
+		this.commonDao = commonDao;
 	}
 }

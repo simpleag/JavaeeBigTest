@@ -6,9 +6,10 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 	<!-- 定义一个action action里面有dao包的servie -->
 	<bean id="myAction" class="action.MyAction"  >
-	   <property name="customersDAO" ref="customersDAO" ></property>
+	   <property name="commonDao" ref="commonDao" ></property>
 	   <property name="defaultResult" value="success"></property>
 	</bean>
 	<!-- service列表 -->
-	<bean id="customersDAO" class="dao.CustomersDAO" />
+	<bean id="commonDao" class="dao.CommonDao" />
+	<bean id="userservice" class="services.UserService"/>
 </beans>

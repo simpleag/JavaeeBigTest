@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<class name="model.Information" table="information">
 		<id name="infoId" column="infoId">
-			<generator class="assigned"/>
+			<generator class="uuid"/>
 		</id>
 		<property name="infoContent" type="string" column="infoContent"/>
 		<property name="sendTime" type="timestamp" column="sendTime"/>
