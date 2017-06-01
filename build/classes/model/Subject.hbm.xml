@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<class name="model.Subject" table="subject">
 		<id name="subId" column="subId">
-			<generator class="assigned"/>
+			<generator class="identity"/>
 		</id>
 		<property name="subName" type="string" column="subName"/>
 		<property name="subInfo" type="string" column="subInfo"/>

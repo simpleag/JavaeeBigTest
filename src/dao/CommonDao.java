@@ -6,19 +6,38 @@ import hibernate.HibernateUtil;
 import org.hibernate.Session;
 public class CommonDao {
 	/*
-	 * 精确查找 并返回对象list
-	 * id(String类型数据即可 主键均为String类型) 表对应类型的临时类  类的名称（对应数据库中表） 列名  根据不同列查找 
+	 * 精确查找 并返回对象list String类型数据即可
+	 * id(STring类型的值) 表对应类型的临时类  类的名称（对应数据库中表） 列名  根据不同列查找 
 	 */
 	public List loadObjet(String id,String objname,String colum) throws Exception {
 		try{
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			//from类名
-			org.hibernate.Query qry = session.createQuery("from "+objname+" where "+ colum +" = ?");
+			org.hibernate.Query qry = session.createQuery("from "+objname+" where "+colum +" = ?");
 			qry.setString(0,id);
 			List list = qry.list();
-//			if(list.size() == 0) 
-//				throw new Exception("没有数据");
+			if(list.size() == 0) 
+				throw new Exception("没有数据");
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+	/*
+	 * 根据主键查找 主键为int类型的数据库
+	 */
+	public List loadByPk(int id,String objname,String colum) throws Exception {
+		try{
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			//from类名
+			org.hibernate.Query qry = session.createQuery("from "+objname+" where "+colum +" = ?");
+			qry.setInteger(0,id);
+			List list = qry.list();
+			if(list.size() == 0) 
+				throw new Exception("没有数据");
 			session.getTransaction().commit();
 			return list;
 		} catch (Exception ex) {

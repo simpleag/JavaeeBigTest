@@ -4,7 +4,7 @@ package model;
  * 班级Id  教师id 课程id　课程编号　上课时间　上课地点　班级标签　 
  */
 public class Teachingclass {
-	private String classId = "";
+	private int classId;
 	private String teacherId = "";
 	private String subId;
 	private String classNum = "";
@@ -13,10 +13,11 @@ public class Teachingclass {
 	private String classTag = "";
 	private String classTempTime = "";
 	
-	public String getClassId() {
+	
+	public int getClassId() {
 		return classId;
 	}
-	public void setClassId(String classId) {
+	public void setClassId(int classId) {
 		this.classId = classId;
 	}
 	public String getTeacherId() {

@@ -3,15 +3,15 @@ package model;
  * 课程id 课程名称 课程信息 课程标签
  */
 public class Subject {
-	private String subId = "";
+	private int subId;
 	private String subName = "";
 	private String subInfo = "";
 	private String subTab = "";
 	
-	public String getSubId() {
+	public int getSubId() {
 		return subId;
 	}
-	public void setSubId(String subId) {
+	public void setSubId(int subId) {
 		this.subId = subId;
 	}
 	public String getSubName() {

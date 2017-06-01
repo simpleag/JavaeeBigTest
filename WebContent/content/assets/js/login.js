@@ -5,13 +5,13 @@ var reurl = {
 };
 function getInfo(JSONObject){
    reurl.url = JSONObject.url;
-   reurl.msg = JSONObject.msg;
+   reurl.msg = JSONObject.msg;	
    reurl.username = JSONObject.username;
 }
 function loadOtherPage(data){
 	getInfo(data);
-	localStorage.setItem("msg",data.msg);
-	localStorage.setItem("username",data.username);
+	sessionStorage.setItem("msg",data.msg);
+	sessionStorage.setItem("username",data.username);
 	alert(data.msg+data.username);
 	window.open("/JavaeeBigTest"+reurl.url);
 }

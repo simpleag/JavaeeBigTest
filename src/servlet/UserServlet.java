@@ -65,4 +65,45 @@ public class UserServlet {
 			printWriter.close();
 		}
 	}
+	/*用户绑定 未测试 微信端未实现
+	 * 需要username password usernum 
+	 * 返回信息URL+msg
+	 */
+	@RequestMapping(value = "/binding",method = RequestMethod.POST) // @RequestMapping 注解可以用指定的URL路径访问本控制层
+	public void BindingUser(HttpServletRequest request,HttpServletResponse response) {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String usernum = request.getParameter("usernum");
+		CommonDao commonDao = (CommonDao) context.getBean("commonDao");
+		JSONObject j1 = new JSONObject();
+		User u1 = new User();
+		try {
+			List list = (List) commonDao.loadObjet(username, "User","userName");
+			response.setCharacterEncoding("UTF-8");
+			printWriter = response.getWriter();
+			if (list.size() == 0) {
+				System.out.println("查无此用户");
+				j1.put("msg", "查无此用户");
+			} else {
+				u1 = (User) list.get(0);
+				if(password.equals(u1.getUserPwd()) && usernum.equals(u1.getUserNum())) {
+					j1.put("url", "/ok.html");
+					j1.put("msg", "成功登录");
+				} else {
+					j1.put("url","/no.jsp");
+					j1.put("msg", "密码或者学工号错误");
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			j1.put("username", u1.getUserName());
+			String json = JSON.toJSONString(j1);
+			System.out.println("json");
+			printWriter.print(json);
+			printWriter.flush();
+			printWriter.close();
+		}
+	}
 }

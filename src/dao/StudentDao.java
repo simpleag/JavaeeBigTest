@@ -13,7 +13,7 @@ public class StudentDao {
 	/*
 	 * 根据教师的任课班级ID 查询老师班级下的学生
 	 */
-	public List loadStudentOfClass(String classid) throws Exception {
+	public List loadStudentOfClass(int classid) throws Exception {
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
@@ -21,7 +21,7 @@ public class StudentDao {
 			             +" from j2eebigtest.user,j2eebigtest.elective,j2eebigtest.teachingclass "
 					     +" where  j2eebigtest.teachingclass.classId = ? and j2eebigtest.elective.classId = j2eebigtest.teachingclass.classId and j2eebigtest.elective.userId = j2eebigtest.user.userId;";
 			org.hibernate.Query query = session.createSQLQuery(sql).addEntity(User.class);
-			query.setString(0,classid);
+			query.setString(0,String.valueOf(classid));
 			List list = query.list();
 			session.getTransaction().commit();
 			return list;

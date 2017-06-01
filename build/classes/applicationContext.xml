@@ -12,4 +12,7 @@
 	<!-- service列表 -->
 	<bean id="commonDao" class="dao.CommonDao" />
 	<bean id="userservice" class="services.UserService"/>
+	<bean id="studentDao" class="dao.StudentDao"/>
+	<bean id="teachingclassDao" class="dao.TeachingclassDao"/>
+	
 </beans>

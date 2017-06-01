@@ -4,16 +4,16 @@ package model;
  * 选课Id 班级id 用户id 分数 选课班级
  */
 public class Elective {
-	private String electiveId = "";
+	private int electiveId;
 	private String classId = "";
 	private String userId = "";
 	private String score = "";
 	private String electiveTag	 = "";
 	
-	public String getElectiveId() {
+	public int getElectiveId() {
 		return electiveId;
 	}
-	public void setElectiveId(String electiveId) {
+	public void setElectiveId(int electiveId) {
 		this.electiveId = electiveId;
 	}
 	public String getClassId() {

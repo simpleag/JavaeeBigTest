@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import model.Teachingclass;
 import model.User;
 
 import org.hibernate.Session;
@@ -19,7 +20,7 @@ public class TeachingclassDao {
 			String sql = " SELECT  DISTINCT j2eebigtest.teachingclass.*  "
 		             +" FROM j2eebigtest.teachingclass,j2eebigtest.elective,j2eebigtest.user "
 					 +" where j2eebigtest.elective.userId = ? and j2eebigtest.elective.classId = j2eebigtest.teachingclass.classId ";
-			org.hibernate.Query query = session.createSQLQuery(sql).addEntity(User.class);
+			org.hibernate.Query query = session.createSQLQuery(sql).addEntity(Teachingclass.class);
 			query.setString(0,studentid);
 			List list = query.list();
 			session.getTransaction().commit();

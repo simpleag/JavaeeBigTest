@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<class name="model.User" table="user">
 		<id name="userId" column="userId">
-			<generator class="assigned"/>
+			<generator class="identity"/>
 		</id>
 		<property name="userOpenId" type="string" column="userOpenId"/>
 		<property name="userNum" type="string" column="userNum"/>

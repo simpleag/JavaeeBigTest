@@ -5,11 +5,11 @@
 <hibernate-mapping>
 	<class name="model.Elective" table="elective">
 		<id name="electiveId" column="electiveId">
-			<generator class="assigned"/>
+			<generator class="identity"/>
 		</id>
 		<property name="classId" type="string" column="classId"/>
 		<property name="userId" type="string" column="userId"/>
 		<property name="score" type="string" column="score"/>
-		<property name="electiveTag" type="string" column="eletiveTag"/>
+		<property name="electiveTag" type="string" column="electiveTag"/>
 	</class>
 </hibernate-mapping>    

@@ -1,17 +1,17 @@
 package model;
 
 public class User {
-	private String userId = "";
+	private int userId;
 	private String userOpenId = "";
 	private String userNum = "";
 	private String userPwd = "";
 	private String userName = "";
 	private String userTag = "";
 	
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getUserOpenId() {

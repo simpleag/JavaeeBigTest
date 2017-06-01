@@ -3,11 +3,11 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="model.Teachingclass" table="teahingclass">
+	<class name="model.Teachingclass" table="teachingclass">
 		<id name="classId" column="classId">
-			<generator class="assigned"/>
+			<generator class="identity"/>
 		</id>
-		<property name="teacherId" type="string" column="tercherId"/>
+		<property name="teacherId" type="string" column="teacherId"/>
 		<property name="subId" type="string" column="subId"/>
 		<property name="classNum" type="string" column="classNum"/>
 		<property name="classTime" type="string" column="classTime"/>
