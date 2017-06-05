@@ -33,6 +33,7 @@ public class UserServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		CommonDao commonDao = (CommonDao) context.getBean("commonDao");
+		System.out.println("test start");
 		JSONObject j1 = new JSONObject();
 		User u1 = new User();
 		try {
@@ -46,7 +47,11 @@ public class UserServlet {
 			} else {
 				u1 = (User) list.get(0);
 				if(password.equals(u1.getUserPwd())) {
-					j1.put("url", "/ok.html");
+					if(u1.getUserTag().equals("student")){
+						j1.put("url", "/student.html");
+					}else{
+						j1.put("url", "/ok.html");
+					}
 					j1.put("msg", "成功登录");
 				} else {
 					j1.put("url","/no.jsp");
@@ -58,8 +63,9 @@ public class UserServlet {
 			e.printStackTrace();
 		}finally {
 			j1.put("username", u1.getUserName());
+			j1.put("userid",u1.getUserId());
 			String json = JSON.toJSONString(j1);
-			System.out.println("json");
+			System.out.println(json);
 			printWriter.print(json);
 			printWriter.flush();
 			printWriter.close();

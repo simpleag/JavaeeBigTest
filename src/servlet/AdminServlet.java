@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jdk.nashorn.internal.scripts.JO;
 import model.Teachingclass;
 import model.User;
 
@@ -20,6 +21,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import dao.CommonDao;
+import dao.TeachingclassDao;
 
 @Controller
 public class AdminServlet {
@@ -54,6 +56,66 @@ public class AdminServlet {
 				ja.add(t1);
 			}
 			System.out.println(JSON.toJSONString(ja));
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			printWriter.print(ja);
+			printWriter.flush();
+			printWriter.close();
+		}
+	}
+	/*
+	 * [
+	 * {
+	 * "classAdd":"教3101",
+	 * "classId":1,
+	 * "classNum":"1401",
+	 * "classTag":"",
+	 * "classTempTime":"",
+	 * "classTime":"1-2",
+	 * "subId":"1",
+	 * "teacherId":"3"
+	 * }
+	 * ,{"classAdd":"教三101","classId":2,"classNum":"1402","classTime":"周二1-2","subId":"1","teacherId":"3"},{"classId":3,"classNum":"1403","subId":"1","teacherId":"4"}]
+	 */
+	@RequestMapping(value = "showclasslist",method = RequestMethod.POST)
+	public void ShowClassList(HttpServletRequest request, HttpServletResponse response) {
+		JSONArray ja = new JSONArray();
+		JSONObject j1 = new JSONObject();
+		TeachingclassDao tdao = (TeachingclassDao) context.getBean("teachingclassDao");
+		String userid = request.getParameter("username");
+		try {
+			response.setCharacterEncoding("UTF-8");
+			printWriter = response.getWriter();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			printWriter.print(ja);
+			printWriter.flush();
+			printWriter.close();
+		}
+	}
+	@RequestMapping(value = "updataClass",method = RequestMethod.POST)
+	public void UpdataClass(HttpServletRequest request, HttpServletResponse response) {
+		JSONArray ja = new JSONArray();
+		JSONObject j1 = new JSONObject();
+		String tc = request.getParameter("tcclass");
+		JSONArray ja2 = new JSONArray();
+		ja2.add(JSON.parse(tc));
+		System.out.println(JSON.toJSONString(ja2));
+		JSONArray ja3 = new JSONArray();
+		//完成对字符串的处理转化成原来的jsonlist
+		ja3 = ja2.getJSONArray(0);
+		System.out.println(JSON.toJSONString(ja3));
+		try {
+			response.setCharacterEncoding("UTF-8");
+			printWriter = response.getWriter();
+			Teachingclass tctemp = (Teachingclass) ja3.get(0);
+			CommonDao commonDao = (CommonDao) context.getBean("commonDao");
+			commonDao.updata(tctemp);
+			j1.put("msg", "ok");
+			ja.add(j1);
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {

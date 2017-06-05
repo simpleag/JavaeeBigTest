@@ -186,22 +186,69 @@ public class Test {
 //		}
 		
 		//学生查询课程
+//		TeachingclassDao tdao = (TeachingclassDao) context.getBean("teachingclassDao");
+//		String userid = "1";
+//		Teachingclass tc = new Teachingclass();
+//		List classlist = tdao.loadClassOfStudent(userid) ;
+//		JSONObject jo1 = new JSONObject();
+//		JSONArray ja1 = new JSONArray();
+//		JSONArray ja2 = new JSONArray();
+//		for(int i=0;i<classlist.size();i++){
+//			tc = (Teachingclass) classlist.get(i);
+//			ja1.add(tc);
+//			jo1 = new JSONObject();
+//			jo1.put("classnum", tc.getClassNum());
+//			jo1.put("classadd", tc.getClassAdd());
+//			ja2.add(jo1);
+//		}
+//		System.out.println(JSON.toJSONString(ja1));
+//		System.out.println(JSON.toJSONString(ja2));
+		
+		//学生查询教师
+//		TeacherDao teacherDao = (TeacherDao) context.getBean("teacherDao");
+//		String studentid = "1";
+//		List teacherList = teacherDao.loadClassOfStudent(studentid);
+//		User user = new User();
+//		for(int i=0;i<teacherList.size();i++){
+//			user = (User) teacherList.get(i);
+//			ja.add(user);
+//		}
+//		System.out.println(ja);
+		
+		//管理员功能 查看所有课程信息
+//		List tcList = commonDao.loadall("Teachingclass");
+//		Teachingclass tc = new Teachingclass();
+//		for(int i=0;i<tcList.size();i++){
+//			tc = (Teachingclass) tcList.get(i);
+//			ja.add(tc);
+//		}
+//		System.out.println(ja);
+//		JSONArray ja2 = new JSONArray();
+//		String srt = JSON.toJSONString(ja);
+//		ja2.add(JSON.parse(srt));
+//		System.out.println(JSON.toJSONString(ja2));
+//		JSONArray ja3 = new JSONArray();
+//		//完成对字符串的处理转化成原来的jsonlist
+//		ja3 = ja2.getJSONArray(0);
+//		System.out.println(JSON.toJSONString(ja3));
+		
+//		tc = (Teachingclass) ja.get(0);
+//		tc.setClassAdd("教5-106");
+//		commonDao.updata(tc);
 		TeachingclassDao tdao = (TeachingclassDao) context.getBean("teachingclassDao");
-		String userid = "1";
 		Teachingclass tc = new Teachingclass();
-		List classlist = tdao.loadClassOfStudent(userid) ;
+		List classlist = tdao.loadClassOfStudent("1");
 		JSONObject jo1 = new JSONObject();
-		JSONArray ja1 = new JSONArray();
 		JSONArray ja2 = new JSONArray();
 		for(int i=0;i<classlist.size();i++){
 			tc = (Teachingclass) classlist.get(i);
-			ja1.add(tc);
-			jo1.put("classnum", tc.getClassNum());
-			jo1.put("classadd", tc.getClassAdd());
-			ja2.add(jo1);
+			ja.add(tc);
+//			jo1 = new JSONObject();
+//			jo1.put("classnum", tc.getClassNum());
+//			jo1.put("classadd", tc.getClassAdd());
+//			ja2.add(jo1);
 		}
-		System.out.println(JSON.toJSONString(ja1));
-		System.out.println(JSON.toJSONString(ja2));
+		System.out.println(JSON.toJSONString(ja));
 	}
 
 }
