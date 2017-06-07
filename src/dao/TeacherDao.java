@@ -1,12 +1,14 @@
 package dao;
 
+import hibernate.HibernateUtil;
+
 import java.util.List;
 
 import model.User;
 
 import org.hibernate.Session;
 
-import cn.edu.zucc.hibernatetest.util.HibernateUtil;
+
 
 public class TeacherDao {
 	/*

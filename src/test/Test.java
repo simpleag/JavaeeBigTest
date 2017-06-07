@@ -8,6 +8,7 @@ import hibernate.HibernateUtil;
 import model.Elective;
 import model.Information;
 import model.MyToken;
+import model.Subject;
 import model.Teachingclass;
 import model.User;
 
@@ -235,20 +236,25 @@ public class Test {
 //		tc = (Teachingclass) ja.get(0);
 //		tc.setClassAdd("教5-106");
 //		commonDao.updata(tc);
-		TeachingclassDao tdao = (TeachingclassDao) context.getBean("teachingclassDao");
-		Teachingclass tc = new Teachingclass();
-		List classlist = tdao.loadClassOfStudent("1");
-		JSONObject jo1 = new JSONObject();
-		JSONArray ja2 = new JSONArray();
-		for(int i=0;i<classlist.size();i++){
-			tc = (Teachingclass) classlist.get(i);
-			ja.add(tc);
-//			jo1 = new JSONObject();
-//			jo1.put("classnum", tc.getClassNum());
-//			jo1.put("classadd", tc.getClassAdd());
-//			ja2.add(jo1);
-		}
-		System.out.println(JSON.toJSONString(ja));
+//		TeachingclassDao tdao = (TeachingclassDao) context.getBean("teachingclassDao");
+//		Teachingclass tc = new Teachingclass();
+//		List classlist = tdao.loadClassOfStudent("1");
+//		JSONObject jo1 = new JSONObject();
+//		JSONArray ja2 = new JSONArray();
+//		for(int i=0;i<classlist.size();i++){
+//			tc = (Teachingclass) classlist.get(i);
+//			ja.add(tc);
+////			jo1 = new JSONObject();
+////			jo1.put("classnum", tc.getClassNum());
+////			jo1.put("classadd", tc.getClassAdd());
+////			ja2.add(jo1);
+//		}
+//		System.out.println(JSON.toJSONString(ja));
+		List scorelist;
+		scorelist = commonDao.loadObjet("1", "Subject", "subId");;
+		Subject e = (Subject) scorelist.get(0);
+		System.out.println(e.getSubName());
+		
 	}
 
 }

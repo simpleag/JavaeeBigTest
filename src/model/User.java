@@ -7,6 +7,8 @@ public class User {
 	private String userPwd = "";
 	private String userName = "";
 	private String userTag = "";
+	private String phonenumber = "";
+	
 	
 	public int getUserId() {
 		return userId;
@@ -43,6 +45,12 @@ public class User {
 	}
 	public void setUserTag(String userTag) {
 		this.userTag = userTag;
+	}
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 	
 }

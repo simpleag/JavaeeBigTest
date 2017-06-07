@@ -32,8 +32,8 @@ public class CommonDao {
 	 * 根据主键查找 主键为int类型的数据库
 	 */
 	public List loadByPk(int id,String objname,String colum) throws Exception {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try{
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			//from类名
 			org.hibernate.Query qry = session.createQuery("from "+objname+" where "+colum +" = ?");
@@ -41,10 +41,12 @@ public class CommonDao {
 			List list = qry.list();
 			if(list.size() == 0) 
 				throw new Exception("没有数据");
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return list;
 		} catch (Exception ex) {
 			throw new Exception(ex);
+		} finally {
+			session.close();
 		}
 	}
 	/*

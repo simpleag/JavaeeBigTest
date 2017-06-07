@@ -149,22 +149,32 @@ public class StudentServlet {
 	 * }
 	 * ]
 	 */
-	@RequestMapping(value = "studentshowclass",method = RequestMethod.POST)
+	@RequestMapping(value = "studentclass",method = RequestMethod.POST)
 	public void ShowClass(HttpServletRequest request, HttpServletResponse response) {
 		JSONArray ja1 = new JSONArray();
 		JSONObject j1 = new JSONObject();
 		TeachingclassDao tdao = (TeachingclassDao) context.getBean("teachingclassDao");
-		String userid = request.getParameter("username");
+		String userid = request.getParameter("userid");
 		try {
 			response.setCharacterEncoding("UTF-8");
 			printWriter = response.getWriter();
-			Teachingclass tc = new Teachingclass();
 			List classlist = tdao.loadClassOfStudent(userid) ;
 			JSONObject jo1 = new JSONObject();
 			JSONArray ja2 = new JSONArray();
 			for(int i=0;i<classlist.size();i++){
-				tc = (Teachingclass) classlist.get(i);
-				ja1.add(tc);
+				Object[] objects = (Object[]) classlist.get(i);
+				Teachingclass tc = (Teachingclass) objects[0];
+				User user = (User) objects[1];
+				Subject subject = (Subject) objects[2];
+				jo1 = new JSONObject();
+				jo1.put("classnum", tc.getClassNum());
+				jo1.put("classadd", tc.getClassAdd());
+				jo1.put("classtime", tc.getClassTime());
+				jo1.put("subname", subject.getSubName());
+				jo1.put("teachername",user.getUserName());
+				System.out.println(tc.getClassNum()+" "+tc.getClassAdd());
+				ja1.add(jo1);
+//				tc = (Teachingclass) classlist.get(i);
 //				jo1 = new JSONObject();
 //				jo1.put("classnum", tc.getClassNum());
 //				jo1.put("classadd", tc.getClassAdd());
@@ -173,6 +183,7 @@ public class StudentServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
+			System.out.println(JSON.toJSONString(ja1));
 			printWriter.print(ja1);
 			printWriter.flush();
 			printWriter.close();
@@ -192,7 +203,7 @@ public class StudentServlet {
 	 * ,{"userId":4,"userName":"t2","userNum":"10102","userPwd":"1","userTag":"teacher"}]
 	 * 需要获取学生的userid
 	 */
-	@RequestMapping(value = "showteachers",method = RequestMethod.POST)
+	@RequestMapping(value = "studentteachers",method = RequestMethod.POST)
 	public void ShowTeachers(HttpServletRequest request, HttpServletResponse response) {
 		JSONArray ja = new JSONArray();
 		JSONObject j1 = new JSONObject();
@@ -206,7 +217,10 @@ public class StudentServlet {
 			User user = new User();
 			for(int i=0;i<teacherList.size();i++){
 				user = (User) teacherList.get(i);
-				ja.add(user);
+				j1 = new JSONObject();
+				j1.put("teachername",user.getUserName());
+				j1.put("phone", user.getPhonenumber());
+				ja.add(j1);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

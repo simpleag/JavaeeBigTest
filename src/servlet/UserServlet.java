@@ -50,7 +50,7 @@ public class UserServlet {
 					if(u1.getUserTag().equals("student")){
 						j1.put("url", "/student.html");
 					}else{
-						j1.put("url", "/ok.html");
+						j1.put("url", "/teacher.html");
 					}
 					j1.put("msg", "成功登录");
 				} else {

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Information;
+import model.Subject;
 import model.Teachingclass;
 import model.User;
 
@@ -44,12 +45,13 @@ public class TeacherSerlvet {
 	 *   },
 	 *   {"classAdd":"教三101","classId":"2","classNum":"1402","classTime":"周二1-2","subId":"1","teacherId":"3"}]
 	 */
-	@RequestMapping(value = "teachershowclass",method = RequestMethod.POST)
+	@RequestMapping(value = "teacherclass",method = RequestMethod.POST)
 	public void ShowClassList(HttpServletRequest request, HttpServletResponse response) {
 		CommonDao commonDao = (CommonDao)context.getBean("commonDao");
+		StudentDao studentdao = (StudentDao) context.getBean("studentDao");
 		JSONArray ja = new JSONArray();
 		JSONObject j1 = new JSONObject();
-		String teacherId = request.getParameter("teacherID");
+		String teacherId = request.getParameter("teacherId");
 		Teachingclass t1 = new Teachingclass();
 		try {
 			List classlist = commonDao.loadObjet(teacherId, "Teachingclass","teacherId");
@@ -57,13 +59,24 @@ public class TeacherSerlvet {
 			printWriter = response.getWriter();
 			for(int i=0;i<classlist.size();i++){
 				t1 = (Teachingclass) classlist.get(i);
-				ja.add(t1);
+				String subid = t1.getSubId();
+				List sublist = commonDao.loadObjet(subid, "Subject", "subId");
+				Subject subject = new Subject();
+				subject = (Subject) sublist.get(0);
+				JSONObject jo2;
+				JSONArray ja2 = new JSONArray();
+				j1 = new JSONObject();
+				j1.put("classnum",t1.getClassNum());
+				j1.put("classid", t1.getClassId());
+				j1.put("classadd",t1.getClassAdd());
+				j1.put("subname", subject.getSubName());
+				j1.put("classtime", t1.getClassTime());
+				ja.add(j1);
 			}
-			System.out.println(JSON.toJSONString(ja));
-
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
+			System.out.println(JSON.toJSONString(ja));
 			printWriter.print(ja);
 			printWriter.flush();
 			printWriter.close();
@@ -186,6 +199,7 @@ public class TeacherSerlvet {
 		StudentDao studentdao = (StudentDao) context.getBean("studentDao");
 		String userId = request.getParameter("userid");
 		String classId = request.getParameter("classid");
+		String context = request.getParameter("context");
 		try {
 			List userlist = studentdao.loadStudentOfClass(Integer.valueOf("classid"));
 			User u1 = new User();
@@ -201,7 +215,7 @@ public class TeacherSerlvet {
 				info.setClassId(classId);
 				info.setFromUserId(userId);
 				info.setToUserId(String.valueOf(u1.getUserId()));
-				info.setInfoContent("test"+u1.getUserNum());
+				info.setInfoContent(context);
 				Timestamp time = new Timestamp(new Date().getTime());
 				info.setSendTime(time);
 				commonDao.insert(info);

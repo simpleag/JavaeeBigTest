@@ -12,5 +12,6 @@
 		<property name="userPwd" type="string" column="userPwd"/>
 		<property name="userName" type="string" column="userName"/>
 		<property name="userTag" type="string" column="userTag"/>
+		<property name="phonenumber" type="string" column="phonenumber"/>
 	</class>
 </hibernate-mapping>    
