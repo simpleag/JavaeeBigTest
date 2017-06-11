@@ -114,12 +114,13 @@ public class StudentServlet {
 				Information info = (Information) object[0];
 				User user = (User) object[1];
 				Teachingclass tc = (Teachingclass) object[2];
+				Subject sub = (Subject) object[3];
 				j1 = new JSONObject();
 				String strTime = sdf.format(info.getSendTime());
 				j1.put("info", info.getInfoContent());
 				j1.put("sendtime",strTime);
 				j1.put("fromuser", user.getUserName());
-				j1.put("classname", tc.getClassNum());
+				j1.put("classname", sub.getSubName()+tc.getClassNum());
 				ja.add(j1);
 			}
 			System.out.println(JSON.toJSONString(ja));

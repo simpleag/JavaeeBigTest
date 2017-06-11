@@ -1,7 +1,10 @@
 package servlet;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +27,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import dao.CommonDao;
+import dao.InfoDao;
 import dao.StudentDao;
 
 @Controller
@@ -82,36 +86,39 @@ public class TeacherSerlvet {
 			printWriter.close();
 		}
 	}
-	/*根据班级id查找学生
-	 * [
-	 * {
-	 * "userId":"1",
-	 * "userName":"zwp",
-	 * "userNum":"101",
-	 * "userOpenId":"",
-	 * "userPwd":"1",
-	 * "userTag":"student"}]
+	/*根据教师id查找学生
+	 *
 	 */
-	@RequestMapping(value = "teachershowstudent",method = RequestMethod.POST)
+	@RequestMapping(value = "teacherstudent",method = RequestMethod.POST)
 	public void ShowStudentList(HttpServletRequest request, HttpServletResponse response) {
 		StudentDao studentdao = (StudentDao) context.getBean("studentDao");
-		String classid = request.getParameter("classId");
+		String userid = request.getParameter("userid");
 		JSONArray ja = new JSONArray();
 		JSONObject j1 = new JSONObject();
-		User u1 = new User();
 		try {
-			List userlist = studentdao.loadStudentOfClass(Integer.valueOf(classid));
+			List userlist = studentdao.loadStudentOfTeacherId(userid);
 			response.setCharacterEncoding("UTF-8");
 			printWriter = response.getWriter();
 			for(int i=0;i<userlist.size();i++){
-				u1 = (User) userlist.get(i);
-				ja.add(u1);
+				Object[] object = (Object[]) userlist.get(i);
+				User u1 = (User) object[0];
+				Teachingclass tc = (Teachingclass) object[1];
+				Subject sub = (Subject) object[2];
+				j1 = new JSONObject();
+				j1.put("username", u1.getUserName());
+				j1.put("userid",u1.getUserId());
+				j1.put("classname",sub.getSubName()+tc.getClassNum());
+				j1.put("classid", tc.getClassId());
+				ja.add(j1);
 			}
 			System.out.println(JSON.toJSONString(ja));
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.print(userid);
+			e.printStackTrace();
 		} finally {
+			System.out.print(JSON.toJSONString(ja));
 			printWriter.print(ja);
 			printWriter.flush();
 			printWriter.close();
@@ -128,25 +135,40 @@ public class TeacherSerlvet {
 	 * "toUserId":"1"}]
 	 */
 	@RequestMapping(value = "teachershowsendinfo",method = RequestMethod.POST)
-	public void ShowSendList(HttpServletRequest request, HttpServletResponse response) {
+	public void ShowSendList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		JSONArray ja = new JSONArray();
 		JSONObject j1 = new JSONObject();
 		String userid = request.getParameter("userid");
 		CommonDao commonDao = (CommonDao)context.getBean("commonDao");
+		InfoDao infoDao = (InfoDao) context.getBean("infoDao");
+		response.setCharacterEncoding("UTF-8");
+		printWriter = response.getWriter();
+		DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); 
 		try {
-			List infolist = commonDao.loadObjet(userid,"Information", "fromUserId");
+			List infolist = infoDao.infoListByFromUserid(userid);
 			response.setCharacterEncoding("UTF-8");
 			printWriter = response.getWriter();
-			Information info = new Information();
 			for(int i=0;i<infolist.size();i++){
-				info = (Information) infolist.get(i);
-				ja.add(info);
+				Object[] object = (Object[]) infolist.get(i);
+				Information info = (Information) object[0];
+				User user = (User) object[1];
+				Teachingclass tc = (Teachingclass) object[2];
+				Subject sub = (Subject) object[3];
+				j1 = new JSONObject();
+				String strTime = sdf.format(info.getSendTime());
+				j1.put("username", user.getUserName());
+				j1.put("classname", sub.getSubName()+tc.getClassNum());
+				j1.put("context", info.getInfoContent());
+				j1.put("sendtime", strTime);
+				ja.add(j1);
 			}
-			System.out.println(JSON.toJSONString(ja));
+			
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
+			System.out.println(JSON.toJSONString(ja));
 			printWriter.print(ja);
 			printWriter.flush();
 			printWriter.close();
@@ -162,25 +184,38 @@ public class TeacherSerlvet {
 	 * "sendTime":1496126313000,
 	 * "toUserId":"1"}]
 	 */
-	@RequestMapping(value = "teachershowreceiveinfo",method = RequestMethod.POST)
-	public void ShowReceiveList(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "teacherreceiveinfo",method = RequestMethod.POST)
+	public void ShowReceiveList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		JSONArray ja = new JSONArray();
 		JSONObject j1 = new JSONObject();
 		String userid = request.getParameter("userid");
 		CommonDao commonDao = (CommonDao)context.getBean("commonDao");
+		InfoDao infoDao = (InfoDao) context.getBean("infoDao");
+		response.setCharacterEncoding("UTF-8");
+		printWriter = response.getWriter();
+		DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); 
 		try {
-			List infolist = commonDao.loadObjet(userid,"Information", "fromUserId");
-			response.setCharacterEncoding("UTF-8");
-			printWriter = response.getWriter();
-			Information info = new Information();
+			System.out.println("userid:"+userid);
+			List infolist = infoDao.infoListByUserid(userid);
 			for(int i=0;i<infolist.size();i++){
-				info = (Information) infolist.get(i);
-				ja.add(info);
+				Object[] object = (Object[]) infolist.get(i);
+				Information info = (Information) object[0];
+				User user = (User) object[1];
+				Teachingclass tc = (Teachingclass) object[2];
+				Subject sub = (Subject) object[3];
+				j1 = new JSONObject();
+				String strTime = sdf.format(info.getSendTime());
+				j1.put("username", user.getUserName());
+				j1.put("classname", sub.getSubName()+tc.getClassNum());
+				j1.put("context", info.getInfoContent());
+				j1.put("sendtime", strTime);
+				ja.add(j1);
 			}
 			System.out.println(JSON.toJSONString(ja));
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
 			printWriter.print(ja);
 			printWriter.flush();
@@ -191,7 +226,7 @@ public class TeacherSerlvet {
 	 * 需要获取教师userid和班级classid
 	 */
 	@RequestMapping(value = "teachersendinfobyclass",method = RequestMethod.POST)
-	public void SendInfoByClass(HttpServletRequest request, HttpServletResponse response) {
+	public void SendInfoByClass(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		JSONArray jsonStudentList = new JSONArray();
 		JSONArray ja = new JSONArray();
 		JSONObject j1 = new JSONObject();
@@ -200,8 +235,10 @@ public class TeacherSerlvet {
 		String userId = request.getParameter("userid");
 		String classId = request.getParameter("classid");
 		String context = request.getParameter("context");
+		response.setCharacterEncoding("UTF-8");
+		printWriter = response.getWriter();
 		try {
-			List userlist = studentdao.loadStudentOfClass(Integer.valueOf("classid"));
+			List userlist = studentdao.loadStudentOfClass(Integer.valueOf(classId));
 			User u1 = new User();
 			for(int i=0;i<userlist.size();i++){
 				u1 = (User) userlist.get(i);
@@ -226,6 +263,7 @@ public class TeacherSerlvet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			j1.put("msg", "wrong");
+			e.printStackTrace();
 		} finally {
 			printWriter.print(j1);
 			printWriter.flush();
@@ -247,7 +285,7 @@ public class TeacherSerlvet {
 	 * 
 	 */
 	@RequestMapping(value = "teachersendinfobyuser",method = RequestMethod.POST)
-	public void SendInfoByUser(HttpServletRequest request, HttpServletResponse response) {
+	public void SendInfoByUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		JSONArray jsonStudentList = new JSONArray();
 		JSONArray ja = new JSONArray();
 		JSONObject j1 = new JSONObject();
@@ -256,29 +294,32 @@ public class TeacherSerlvet {
 		String classId = request.getParameter("classid");
 		String userId = request.getParameter("userid");
 		//假设接收到jsonlist的字符串
-		String str = request.getParameter("data");
-		System.out.println("str: "+str);
+		String str = request.getParameter("context");
+		String touseruid = request.getParameter("touserid");
+//		System.out.println("str: "+str);
 		//
-		JSONArray ja2 = new JSONArray();
-		ja2.add(JSON.parse(str));
-		System.out.println(JSON.toJSONString(ja2));
-		JSONArray ja3 = new JSONArray();
+//		JSONArray ja2 = new JSONArray();
+//		ja2.add(JSON.parse(str));
+//		System.out.println(JSON.toJSONString(ja2));
+//		JSONArray ja3 = new JSONArray();
 		//完成对字符串的处理转化成原来的jsonlist
-		ja3 = ja2.getJSONArray(0);
+//		ja3 = ja2.getJSONArray(0);
+		response.setCharacterEncoding("UTF-8");
+		printWriter = response.getWriter();
 		try {
-			for(int i=0;i<ja3.size();i++){
-				JSONObject jo2 = ja3.getJSONObject(i);
-				String studentId = jo2.getString("userId");
+//			for(int i=0;i<ja3.size();i++){
+//				JSONObject jo2 = ja3.getJSONObject(i);
+//				String studentId = jo2.getString("userId");
 				Information info = new Information();
 				info.setClassId(classId);
 				info.setFromUserId(userId);
-				info.setToUserId(studentId);
-				info.setInfoContent("test"+studentId);
+				info.setToUserId(touseruid);
+				info.setInfoContent(str);
 				Timestamp time = new Timestamp(new Date().getTime());
 				info.setSendTime(time);
 				commonDao.insert(info);
 
-			}
+//			}
 			j1.put("msg", "ok");
 
 		} catch (Exception e) {
