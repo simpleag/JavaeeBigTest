@@ -1,21 +1,21 @@
 var score = {
-	classid:null,
-	score:null,
-	classname:null
+		classid:null,
+		score:null,
+		classname:null
 }
 var info = {
-	info:null,
+		info:null,
 }
 var tcclass = {
-	classnum:null,
-	classadd:null,
-	classtime:null,
-	subname:null,
-	teachername:null
+		classnum:null,
+		classadd:null,
+		classtime:null,
+		subname:null,
+		teachername:null
 }
 var teachers = {
-	teachername:null,
-	phone:null
+		teachername:null,
+		phone:null
 }
 function getTeacher(JSONObject){
 	teachers.teachername = JSONObject.teachername;
@@ -33,63 +33,91 @@ function getScoreInfo(JSONObject){
 	score.score = JSONObject.score;
 }
 $(document).ready(function() {
-	alert("test id"+localStorage.getItem("userid"));
-	document.getElementById("div2").innerHTML = "student\r\nlist";
-	$("#div2").append("</br>"+"list3");
+	alert("test id"+localStorage.getItem("userid")+localStorage.getItem("usertype"));
+	document.getElementById("titleh").innerHTML = "欢迎登陆信息速查"+localStorage.getItem("username");
+	if (localStorage.getItem("usertype") != 'student'){
+		alert("您不是学生用户");
+		window.opener = null;
+		window.open("", "_self");
+		window.close();
+	}
+//	document.getElementById("tableh").innerHTML = "<thead>";
+//	$("#tableh").append("<tr><th>学生名</th><th>课程名称</th><th>成绩</th></tr></thead>");
 });
 function showteacher(data){
 	var dataset = data;
 	alert("data"+data);
-	document.getElementById("div2").innerHTML = "老师如下";
+	document.getElementById("tableh").innerHTML = "<thead>";
+	$("#tableh").append("<tr><th>老师名称</th><th>老师联系方式</th></tr></thead>");
 	for(var i=0;i<dataset.length;i++){
 		getTeacher(dataset[i]);
-		$("#div2").append("</br>"+i+"</br>");
 		var teachername = dataset[i].teachername;
 		var phone = dataset[i].phone;
-		$("#div2").append(teachername+" "+phone);
+		if(i%2 == 0){
+			$("#tableh").append("<tbody><tr class='success'><td>"+teachername+"</td><td>"+phone+"</td></tr></tbody>");
+		}else {
+			$("#tableh").append("<tbody><tr><td>"+teachername+"</td><td>"+phone+"</td></tr></tbody>");	
+		}
 	}
 };
 function showclass(data){
 	var dataset = data;
 	alert("data"+data);
-	document.getElementById("div2").innerHTML = "班级如下";
+	document.getElementById("tableh").innerHTML = "<thead>";
+	$("#tableh").append("<tr><th>班级编号</th><th>职教老师</th><th>上课地址</th><th>上课时间</th></tr></thead>");
 	for(var i=0;i<dataset.length;i++){
 		getScoreclass(dataset[i]);
-		$("#div2").append("</br>"+i+"</br>");
 		var classnum = dataset[i].classnum;
 		var classadd = dataset[i].classadd;
 		var classtime = dataset[i].classtime;
 		var subname = dataset[i].subname;
 		var teachername = dataset[i].teachername;
-		$("#div2").append(subname+" "+classnum+" "+classadd+" "+classtime+" "+teachername);
+		if(i%2 == 0){
+			$("#tableh").append("<tbody><tr class='success'><td>"+subname+classnum+"</td><td>"+teachername+"</td><td>"+classadd+"</td><td>"+classtime+"</td></tr></tbody>");
+		}else {
+			$("#tableh").append("<tbody><tr><td>"+subname+classnum+"</td><td>"+teachername+"</td><td>"+classadd+"</td><td>"+classtime+"</td></tr></tbody>");	
+		}
 	}
 };
+//完成成绩显示 需要网页有tableh的表格即可
 function showscore(data){
 //	var dataset = $.parseJSON(data);
 	var dataset = data;
 	alert("data"+data+" "+dataset+"and"+dataset[0].classid+"and"+dataset[0].score);
-	document.getElementById("div2").innerHTML = "成绩如下";
+	document.getElementById("tableh").innerHTML = "<thead>";
+	$("#tableh").append("<tr><th>学生名</th><th>课程名称</th><th>成绩</th></tr></thead>");
+	
 	for(var i=0;i<dataset.length;i++){
 		getScoreInfo(dataset[i]);
-		$("#div2").append("</br>"+i+"</br>");
 		var classid = dataset[i].classid;
 		var score = dataset[i].score;
 		var classname = dataset[i].classname;
-		$("#div2").append(classid+" "+classname+" "+score);
+//		
+		if(i%2 == 0){
+			$("#tableh").append("<tbody><tr class='success'><td>"+localStorage.getItem("username")+"</td><td>"+classid+classname+"</td><td>"+score+"</td></tr></tbody>");
+		}else {
+			$("#tableh").append("<tbody><tr><td>"+localStorage.getItem("username")+"</td><td>"+classid+classname+"</td><td>"+score+"</td></tr></tbody>");	
+		}
+
 	}
+
 };
 function showinfo(data){
 	var dataset = data;
 	alert("data"+data);
-	document.getElementById("div2").innerHTML = "成绩如下";
+	document.getElementById("tableh").innerHTML = "<thead>";
+	$("#tableh").append("<tr><th>信息所属课程</th><th>发送信息老师名称</th><th>发送的内容</th><th>发送时间</th></tr></thead>");
 	for(var i=0;i<dataset.length;i++){
 		getScoreInfo(dataset[i]);
-		$("#div2").append("</br>"+i+"</br>");
 		var info = dataset[i].info;
 		var sendtime = dataset[i].sendtime;
 		var fromuser = dataset[i].fromuser;
 		var classname = dataset[i].classname;
-		$("#div2").append(fromuser+" "+classname+" "+ info+" "+sendtime);
+		if(i%2 == 0){
+			$("#tableh").append("<tbody><tr class='success'><td>"+classname+"</td><td>"+fromuser+"</td><td>"+info+"</td><td>"+sendtime+"</td></tr></tbody>");
+		}else {
+			$("#tableh").append("<tbody><tr><td>"+classname+"</td><td>"+fromuser+"</td><td>"+info+"</td><td>"+sendtime+"</td></tr></tbody>");	
+		}
 	}
 };
 function sendscorePost(){

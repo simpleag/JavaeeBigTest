@@ -2,19 +2,54 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="./content/assets/js/jquery-3.2.1.min.js"></script>
+<script src="./content/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<title>教师主页e</title>
 </head>
 <body>
-<button type="button" name = "button" id="b1">群发班级通知</button>
-<button type="button" name = "button" id="b2">查看历史信息</button>
-<button type="button" name = "button" id="b3">查看班级</button>
-<button type="button" name = "button" id="b4">发送给学生通知</button>
-<button type="button" name = "button" id="b5">查看发送的信息</button>
-<div id="div2">
-	
-</div>
-
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="row clearfix">
+					<div class="col-md-2 column"></div>
+					<div class="col-md-6 column">
+						<h3 class="text-center" id='title1'>h3. 这是一套可视化布局系统.</h3>
+						<div class="row clearfix">
+							<div class="col-md-6 column">
+								<button type="button" class="btn btn-default btn-info btn-block" id='b1'>查看班级</button>
+								<button type="button" class="btn btn-default btn-info btn-block" id='b4'>查看学生</button>
+							</div>
+							<div class="col-md-6 column">
+								<button type="button" class="btn btn-default btn-info btn-block" id='b2'>查看历史信息</button>
+								<button type="button" class="btn btn-default btn-info btn-block" id='b5'>查看已发送信息</button>
+							</div>
+						</div>
+						<p class="text-center text-info" id='textinfo'>
+							点击查看班级可以查看班级信息并选择一个班级发送信息，查看学生同理，查看历史信息可查看收到的信息。
+						</p>
+						<table class="table table-bordered table-hover" id='tableh'>
+							
+						</table>
+						<div class="row clearfix">
+							<div class="col-md-12 column" >
+								<div class="input-group" id='divinput'>
+									
+								</div>
+								<!-- /input-group -->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 column"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
-<script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+	src="./content/assets/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="./content/assets/js/teacher.js"></script>
 </html>

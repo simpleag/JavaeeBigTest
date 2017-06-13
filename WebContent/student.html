@@ -1,20 +1,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+  <script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
+  <script src="./content/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <title>学生主页</title>
 </head>
 
 <body>
-
-<button type="button" name = "button" id="b1">查看成绩</button>
-<button type="button" name = "button" id="b2">查看历史信息</button>
-<button type="button" name = "button" id="b3">查看班级</button>
-<button type="button" name = "button" id="b4">查看教师</button>
-<div id="div2">
-	
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h3 class="text-center" id='titleh'>
+				h3. 这是一套可视化布局系统.
+			</h3>
+			<div class="row clearfix">
+				<div class="col-md-4 column">
+					 <button type="button" class="btn btn-default btn-info btn-block" id='b4'>查看您的教师</button> <button type="button" class="btn btn-default btn-info btn-block" id='b3'>查看您的班级</button>
+				</div>
+				<div class="col-md-4 column">
+					 <button type="button" class="btn btn-default btn-info btn-block" id='b2'>查看历史信息</button>
+				</div>
+				<div class="col-md-4 column">
+					 <button type="button" class="btn btn-info btn-default btn-block" id='b1'>查看成绩</button>
+				</div>
+				
+			</div>
+			<table class="table table-bordered table-hover" id='tableh'>
+				
+			</table>
+		</div>
+	</div>
 </div>
-
 </body>
 <script type="text/javascript" src="./content/assets/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="./content/assets/js/student.js"></script>

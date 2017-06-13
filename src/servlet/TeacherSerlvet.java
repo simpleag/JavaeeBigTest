@@ -155,6 +155,7 @@ public class TeacherSerlvet {
 				Teachingclass tc = (Teachingclass) object[2];
 				Subject sub = (Subject) object[3];
 				j1 = new JSONObject();
+				
 				String strTime = sdf.format(info.getSendTime());
 				j1.put("username", user.getUserName());
 				j1.put("classname", sub.getSubName()+tc.getClassNum());

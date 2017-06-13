@@ -37,7 +37,7 @@ public class UserServlet {
 		JSONObject j1 = new JSONObject();
 		User u1 = new User();
 		try {
-			List list = (List) commonDao.loadObjet(username, "User","userName");
+			List list = (List) commonDao.loadObjet(username, "User","userNum");
 			response.setCharacterEncoding("UTF-8");
 			printWriter = response.getWriter();
 			if (list.size() == 0) {
@@ -62,6 +62,7 @@ public class UserServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			j1.put("type", u1.getUserTag());
 			j1.put("username", u1.getUserName());
 			j1.put("userid",u1.getUserId());
 			String json = JSON.toJSONString(j1);
