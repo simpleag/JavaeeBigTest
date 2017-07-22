@@ -33,8 +33,8 @@ function getScoreInfo(JSONObject){
 	score.score = JSONObject.score;
 }
 $(document).ready(function() {
-	alert("test id"+localStorage.getItem("userid")+localStorage.getItem("usertype"));
-	document.getElementById("titleh").innerHTML = "欢迎登陆信息速查"+localStorage.getItem("username");
+//	alert("test id"+localStorage.getItem("userid")+localStorage.getItem("usertype"));
+	document.getElementById("titleh").innerHTML = "欢迎"+localStorage.getItem("username")+"同学登录信息速查系统";
 	if (localStorage.getItem("usertype") != 'student'){
 		alert("您不是学生用户");
 		window.opener = null;
@@ -44,9 +44,9 @@ $(document).ready(function() {
 //	document.getElementById("tableh").innerHTML = "<thead>";
 //	$("#tableh").append("<tr><th>学生名</th><th>课程名称</th><th>成绩</th></tr></thead>");
 });
-function showteacher(data){
+function showTeacher(data){
 	var dataset = data;
-	alert("data"+data);
+//	alert("data"+data);
 	document.getElementById("tableh").innerHTML = "<thead>";
 	$("#tableh").append("<tr><th>老师名称</th><th>老师联系方式</th></tr></thead>");
 	for(var i=0;i<dataset.length;i++){
@@ -60,9 +60,9 @@ function showteacher(data){
 		}
 	}
 };
-function showclass(data){
+function showClass(data){
 	var dataset = data;
-	alert("data"+data);
+//	alert("data"+data);
 	document.getElementById("tableh").innerHTML = "<thead>";
 	$("#tableh").append("<tr><th>班级编号</th><th>职教老师</th><th>上课地址</th><th>上课时间</th></tr></thead>");
 	for(var i=0;i<dataset.length;i++){
@@ -80,10 +80,10 @@ function showclass(data){
 	}
 };
 //完成成绩显示 需要网页有tableh的表格即可
-function showscore(data){
+function showScore(data){
 //	var dataset = $.parseJSON(data);
 	var dataset = data;
-	alert("data"+data+" "+dataset+"and"+dataset[0].classid+"and"+dataset[0].score);
+//	alert("data"+data+" "+dataset+"and"+dataset[0].classid+"and"+dataset[0].score);
 	document.getElementById("tableh").innerHTML = "<thead>";
 	$("#tableh").append("<tr><th>学生名</th><th>课程名称</th><th>成绩</th></tr></thead>");
 	
@@ -102,9 +102,9 @@ function showscore(data){
 	}
 
 };
-function showinfo(data){
+function showInfo(data){
 	var dataset = data;
-	alert("data"+data);
+//	alert("data"+data);
 	document.getElementById("tableh").innerHTML = "<thead>";
 	$("#tableh").append("<tr><th>信息所属课程</th><th>发送信息老师名称</th><th>发送的内容</th><th>发送时间</th></tr></thead>");
 	for(var i=0;i<dataset.length;i++){
@@ -120,9 +120,9 @@ function showinfo(data){
 		}
 	}
 };
-function sendscorePost(){
+function sendScorePost(){
 	var userid = localStorage.getItem("userid");
-	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
+//	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
 	$.ajax({
 		url:"showscore.do",
 		type:"post",
@@ -131,16 +131,16 @@ function sendscorePost(){
 		},
 		dataType: "JSON",
 		success: function(data) {
-			showscore(data);
+			showScore(data);
 		},
 		error: function() {
 			alert("错误");
 		}
 	});
 }
-function sendinfoPost(){
+function sendInfoPost(){
 	var userid = localStorage.getItem("userid");
-	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
+//	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
 	$.ajax({
 		url:"studentinfo.do",
 		type:"post",
@@ -149,16 +149,16 @@ function sendinfoPost(){
 		},
 		dataType: "JSON",
 		success: function(data) {
-			showinfo(data);
+			showInfo(data);
 		},
 		error: function() {
 			alert("错误");
 		}
 	});
 }
-function sendclassPost(){
+function sendClassPost(){
 	var userid = localStorage.getItem("userid");
-	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
+//	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
 	$.ajax({
 		url:"studentclass.do",
 		type:"post",
@@ -167,16 +167,16 @@ function sendclassPost(){
 		},
 		dataType: "JSON",
 		success: function(data) {
-			showclass(data);
+			showClass(data);
 		},
 		error: function() {
 			alert("错误");
 		}
 	});
 }
-function sendteacherPost(){
+function sendTeacherPost(){
 	var userid = localStorage.getItem("userid");
-	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
+//	alert("userid:"+userid+"and"+localStorage.getItem("userid"));
 	$.ajax({
 		url:"studentteachers.do",
 		type:"post",
@@ -185,7 +185,7 @@ function sendteacherPost(){
 		},
 		dataType: "JSON",
 		success: function(data) {
-			showteacher(data);
+			showTeacher(data);
 		},
 		error: function() {
 			alert("错误");
@@ -194,17 +194,17 @@ function sendteacherPost(){
 }
 $("#b1").click(function(){
 	alert("ok");
-	sendscorePost();
+	sendScorePost();
 });
 $("#b2").click(function(){
 	alert("正在查询");
-	sendinfoPost();
+	sendInfoPost();
 });
 $("#b3").click(function(){
 	alert("正在查询课程信息");
-	sendclassPost();
+	sendClassPost();
 });
 $("#b4").click(function(){
 	alert("正在查询教师信息");
-	sendteacherPost();
+	sendTeacherPost();
 });
